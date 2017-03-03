@@ -1,0 +1,25 @@
+<html>
+    <head>
+	    <script src="https://polygit.org/components/webcomponentsjs/webcomponents-lite.js"></script>
+        <link rel="import" href="sound-thing.html">
+		<style>
+			#sound1{
+				position:absolute;
+				left: 20px;
+				top: 20px;
+			}
+			#sound2{
+				position:absolute;
+				right: 20px;
+				top: 20px;
+			}
+		</style>
+    </head>
+    <body>
+
+		<sound-thing id='sound1' sensitivity=10000.0 url='3890.mp3'>
+			<p> TEST</p>
+		</sound-thing>
+		<sound-thing id='sound2' sensitivity=10000.0 url='3891.mp3'></sound-thing>
+    </ody>
+</html>
