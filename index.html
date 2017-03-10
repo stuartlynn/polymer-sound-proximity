@@ -3,23 +3,43 @@
 	    <script src="https://polygit.org/components/webcomponentsjs/webcomponents-lite.js"></script>
         <link rel="import" href="sound-thing.html">
 		<style>
-			#sound1{
+			sound-thing{
 				position:absolute;
-				left: 20px;
-				top: 20px;
-			}
-			#sound2{
-				position:absolute;
-				right: 20px;
-				top: 20px;
 			}
 		</style>
     </head>
     <body>
 
-		<sound-thing id='sound1' sensitivity=10000.0 url='3890.mp3'>
-			<p> TEST</p>
+
+		<sound-thing
+			style='top: 20% ; left: 20% '
+			id='sound1'
+			sensitivity=0.02
+			url='Sounds/The 4 Phases of a Migraine Headache.mp3'>
 		</sound-thing>
-		<sound-thing id='sound2' sensitivity=10000.0 url='3891.mp3'></sound-thing>
-    </ody>
+
+
+		<sound-thing
+			style='top: 20% ; left: 50%'
+			id='sound2'
+			sensitivity=0.02
+			url='Sounds/1_fullt_migraines_tsunamis.mp3'
+			source  = 'http://google.com'>
+		</sound-thing>
+
+		<sound-thing
+			style='top: 40% ; left: 50%'
+			id='sound2'
+			sensitivity=0.02
+			url="Sounds/Vera Lynn - We'll Meet Again.mp3">
+		</sound-thing>
+
+    <sound-thing
+      style='top: 80% ; left: 20%'
+      id='sound2'
+      sensitivity=0.02
+      url="Sounds/youtube_thai_migraine.wav">
+    </sound-thing>
+
+    </body>
 </html>

@@ -8,31 +8,33 @@
 	  :host {
       }
 	  #thing{
-		
+
         display: inline-block;
         width: 200px;
         height: 200px;
         border-radius: 200px;
-        background-color: red;
+		background: -webkit-radial-gradient(50%, 50%, top,red 10%,white 90%);
+		background: radial-gradient(at 50% 50%, red 10%,white 90%);
 	  }
 
     </style>
+<a href={{source}} target='_blank'>
     <div id='thing'>
-		<p>one</p>
-		<content></content>
-		<p>two</p>
+		 <content></content>
+
 	</div>
+</a>
   </template>
   <script>
-    Polymer({ 
+    Polymer({
         is: 'sound-thing',
         properties:{
 			val: 0,
 			sensitivity:10000.0,
+			source:'',
             url:{
                 type: 'String',
-                value: null,
-                observer : 'soundUpdated'
+                value: null
             }
 		},
         loadSound: function(){
@@ -42,17 +44,24 @@
 		   getSound.onload = function() {
 		     this.context.decodeAudioData(getSound.response, function(buffer){
 				 this.buffer = buffer;
-					
-				 this.context = new AudioContext();
+
+         if(!window.audio_context){
+            window.audio_context = new AudioContext()
+         }
+
+				 this.context = window.audio_context;
 				 this.source = this.context.createBufferSource();
-				 this.source.buffer = buffer;    
+				 this.source.buffer = buffer;
+				 this.source.loop = true
 				 this.gainNode = this.context.createGain();
+				 this.gainNode.gain.value = 0
 				 this.t = 0 ;
 				 this.source.connect(this.gainNode);
 				 this.gainNode.connect(this.context.destination);
-				 this.source.start(0);  
+
+				 this.source.start(0);
 	       	 }.bind(this))
-		   }.bind(this); 
+		   }.bind(this);
 		   getSound.send()
         },
         ready: function(){
@@ -60,11 +69,13 @@
 				clipping = this.getBoundingClientRect()
 				x = (clipping.left + clipping.right)*0.5
 				y = (clipping.top  + clipping.bottom)*0.5
-				dist = Math.sqrt(Math.pow(e.pageX-x,2), Math.pow(e.pageY-y,2))
-				val  = Math.exp(-dist*dist/this.sensitivity);
+				pageWidth = window.innerWidth;
+				pageHeight = window.innerHeight;
+				dist = Math.pow( (e.pageX-x)/pageWidth,2) +  Math.pow((e.pageY-y)/pageHeight,2)
+				val  = Math.exp(-dist/this.sensitivity);
 				this.val = val
 				if (this.gainNode){
-					this.gainNode.gain.value = val; 
+					this.gainNode.gain.value = val;
 				}
 			}.bind(this));
 			this.context = new AudioContext();
