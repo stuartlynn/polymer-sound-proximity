@@ -45,11 +45,6 @@
 		     this.context.decodeAudioData(getSound.response, function(buffer){
 				 this.buffer = buffer;
 
-         if(!window.audio_context){
-            window.audio_context = new AudioContext()
-         }
-
-				 this.context = window.audio_context;
 				 this.source = this.context.createBufferSource();
 				 this.source.buffer = buffer;
 				 this.source.loop = true
@@ -78,7 +73,14 @@
 					this.gainNode.gain.value = val;
 				}
 			}.bind(this));
-			this.context = new AudioContext();
+            if(!window.audio_context){
+                console.log('generating a new audio context')
+                a = new AudioContext()
+                console.log(a)
+                window.audio_context = a 
+            }
+
+		    this.context = window.audio_context;
 			this.loadSound()
         }
 	})
